@@ -5,10 +5,13 @@ import {
 } from 'react-native';
 
 import { Login } from './components/login';
+import { HomePage } from './components/home-page';
 
 export class Main extends Component {
   renderScene(route, navigator) {
     switch (route.name) {
+      case 'home':
+        return <HomePage route={route} navigator={navigator} />;
       default:
         return <Login route={route} navigator={navigator} />;
     }
@@ -18,7 +21,7 @@ export class Main extends Component {
     return (
       <Navigator
         style={ styles.container }
-        initialRoute={ {name: 'login'} }
+        initialRoute={ {name: 'home'} }
         renderScene={this.renderScene}
         configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; } }
       />

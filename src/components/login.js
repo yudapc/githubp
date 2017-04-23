@@ -16,7 +16,14 @@ export class Login extends Component {
   }
 
   onPress() {
-    console.log(this.state);
+    if (this.state.username) {
+      this.props.navigator.push({
+        name: 'dashboard',
+        passProps: {
+          username: this.state.username,
+        },
+      });
+    }
   }
 
   onPressCancel() {
