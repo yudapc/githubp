@@ -7,6 +7,7 @@ import {
 import { Login } from './components/login';
 import { HomePage } from './components/home-page';
 import { Dashboard } from './components/dashboard';
+import { Profile } from './components/profile';
 
 export class Main extends Component {
   renderScene(route, navigator) {
@@ -15,6 +16,8 @@ export class Main extends Component {
         return <HomePage route={route} navigator={navigator} />;
       case 'dashboard':
         return <Dashboard route={route} navigator={navigator} username={route.passProps.username}/>;
+      case 'profile':
+        return <Profile route={route} navigator={navigator} username={route.passProps.username}/>;
       default:
         return <Login route={route} navigator={navigator} />;
     }
