@@ -17,10 +17,10 @@ export class Profile extends Component {
   }
 
   componentWillMount() {
-    this.handleConnection();
+    this.getProfileData();
   }
 
-  handleConnection() {
+  getProfileData() {
     fetch('https://api.github.com/users/' + this.props.username, {'method': 'GET'})
       .then((response) => response.json())
       .then((responseData) => {
@@ -34,6 +34,15 @@ export class Profile extends Component {
 
   onPress() {
     this.props.navigator.pop();
+  }
+
+  onPressGist() {
+    this.props.navigator.push({
+      name: 'gist',
+      passProps: {
+        username: this.props.username,
+      },
+    });
   }
 
   render() {
@@ -59,6 +68,14 @@ export class Profile extends Component {
               style={{width: 50, height: 50}}
               source={this.state.avatar_url}
             />
+
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor={'#328FE6'}
+            onPress={() => this.onPressGist()}
+            >
+            <Text style={styles.label}>GIST</Text>
+          </TouchableHighlight>
 
           <TouchableHighlight
             style={styles.button}

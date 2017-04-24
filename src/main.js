@@ -10,6 +10,7 @@ import { HomePage } from './components/home-page';
 import { Dashboard } from './components/dashboard';
 import { Profile } from './components/profile';
 import { PageNoInternetConnection } from './components/page-no-internet-connection';
+import { Gist } from './components/gist';
 
 export class Main extends Component {
   renderScene(route, navigator) {
@@ -22,6 +23,8 @@ export class Main extends Component {
         return <Profile route={route} navigator={navigator} username={route.passProps.username}/>;
       case 'offline':
         return <PageNoInternetConnection onTryAgain={() => Alert.alert('Info', 'Try Again')} />;
+      case 'gist':
+        return <Gist route={route} navigator={navigator} username={route.passProps.username}/>;
       default:
         return <Login route={route} navigator={navigator} />;
     }
