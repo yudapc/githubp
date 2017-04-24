@@ -4,7 +4,6 @@ import {
   View,
   TouchableHighlight,
   Image,
-  NetInfo,
 } from 'react-native';
 import { styles } from './styles';
 
@@ -13,22 +12,12 @@ export class Profile extends Component {
     super();
     this.state = {
       user: {},
-      avatar_url: 'http://vvcexpl.com/wordpress/wp-content/uploads/2013/09/profile-default-male.png',
+      avatar_url: require('./assets/default.png'),
     };
   }
 
   componentWillMount() {
-    NetInfo.isConnected.fetch().then((isConnected) => {
-      if (isConnected) {
-        handleConnection();
-      } else {
-        this.props.navigator.immediatelyResetRouteStack([
-          {
-            name: 'offline',
-          },
-        ]);
-      }
-    });
+    this.handleConnection();
   }
 
   handleConnection() {
@@ -37,7 +26,7 @@ export class Profile extends Component {
       .then((responseData) => {
         this.setState({
           user: responseData,
-          avatar_url: responseData.avatar_url,
+          avatar_url: responseData.avatar_url ?  { uri: responseData.avatar_url } : responseData.avatar_url,
         });
       })
       .done();
@@ -68,7 +57,7 @@ export class Profile extends Component {
           </Text>
           <Image
               style={{width: 50, height: 50}}
-              source={{uri: this.state.avatar_url}}
+              source={this.state.avatar_url}
             />
 
           <TouchableHighlight
