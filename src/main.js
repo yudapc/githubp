@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Navigator,
+  Alert,
 } from 'react-native';
 
 import { Login } from './components/login';
 import { HomePage } from './components/home-page';
 import { Dashboard } from './components/dashboard';
 import { Profile } from './components/profile';
+import { PageNoInternetConnection } from './components/page-no-internet-connection';
 
 export class Main extends Component {
   renderScene(route, navigator) {
@@ -18,6 +20,8 @@ export class Main extends Component {
         return <Dashboard route={route} navigator={navigator} username={route.passProps.username}/>;
       case 'profile':
         return <Profile route={route} navigator={navigator} username={route.passProps.username}/>;
+      case 'offline':
+        return <PageNoInternetConnection onTryAgain={() => Alert.alert('Info', 'Try Again')} />;
       default:
         return <Login route={route} navigator={navigator} />;
     }
@@ -33,6 +37,7 @@ export class Main extends Component {
       />
     );
   }
+
 }
 
 const styles = StyleSheet.create({

@@ -4,6 +4,7 @@ import {
   View,
   TouchableHighlight,
   Image,
+  NetInfo,
 } from 'react-native';
 import { styles } from './styles';
 
@@ -17,6 +18,20 @@ export class Profile extends Component {
   }
 
   componentWillMount() {
+    NetInfo.isConnected.fetch().then((isConnected) => {
+      if (isConnected) {
+        handleConnection();
+      } else {
+        this.props.navigator.immediatelyResetRouteStack([
+          {
+            name: 'offline',
+          },
+        ]);
+      }
+    });
+  }
+
+  handleConnection() {
     fetch('https://api.github.com/users/' + this.props.username, {'method': 'GET'})
       .then((response) => response.json())
       .then((responseData) => {
